@@ -33,7 +33,7 @@ $categories = $client->getParsed('/categories');
 <form method="post" action="">
 <fieldset>
     <input name="thing[url]" value="" placeholder="url"/>
-    <input name="thing[title]" value="" placeholder="subject"/>
+    <input name="thing[title]" value="" placeholder="title"/>
     <textarea name="thing[description]"></textarea>
     <div>
         category

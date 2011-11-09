@@ -2,6 +2,12 @@
 
 to get up and running:
 
+the oauth2client uses httpconnection and httpresponse which wrapps the curl php bindings.
+
+if you are using a server with apt you can install it by
+
+    apt-get install php5-curl
+
 point a vhost to the public/ directory.
 
 create an API key at https://flattr.com/apps
