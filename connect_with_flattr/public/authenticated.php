@@ -17,6 +17,7 @@ function on_get($params)
   $vars = array(
     'profile' => $params['client']->getParsed('/user'),
     'things'  => $params['client']->getParsed('/user/things'),
+    'title'   => 'signed in!',
   );
   return template(basename(__FILE__),$vars);
 }
