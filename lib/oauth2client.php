@@ -6,7 +6,10 @@ class OAuth2Client
     protected $http = null;
 
     /**
-     * @param array $settings
+     * creates the oauth2client object with some defaults
+     *
+     * @param array $settings overrides default settings.
+     * @return OAuth2Client
      */
     public function __construct( $settings = array() )
     {
@@ -34,6 +37,8 @@ class OAuth2Client
     }
 
     /**
+     * assemble the authorize_url link
+     *
      * @return string authorize url endpoint
      */
     public function authorizeUrl()
@@ -46,6 +51,8 @@ class OAuth2Client
     }
 
     /**
+     * exchange $code for an access_token
+     *
      * @param string $code
      * @throws exception
      * @return mixed string or false
@@ -99,6 +106,8 @@ class OAuth2Client
     }
 
     /**
+     * perform a GET api call
+     *
      * @param string $path
      * @return HttpResponse
      */
@@ -121,6 +130,8 @@ class OAuth2Client
     }
 
     /**
+     * perform a GET api call, wrapped in OAuth2Client::parseResponse
+     *
      * @param string $path
      * @return mixed array or string
      */
@@ -137,13 +148,14 @@ class OAuth2Client
     }
 
     /**
+     * perform a POST api call
+     *
      * @param string $path
      * @param array $postarray
      * @return HttpResponse
      */
     public function post($path, $postarray)
     {
-        slog("doing POST...");
         $this->logRequest(
             'POST '.$this->uriFor($path),
             array(
@@ -165,6 +177,10 @@ class OAuth2Client
     }
 
     /**
+     * assemble headers for an API clall,
+     * adding Accept and potentially Authorization
+     *
+     * @param boolean $authorizationHeader
      * @return array $headers
      */
     protected function headers($authorizationHeader = true)
@@ -176,7 +192,8 @@ class OAuth2Client
             if (! empty($this->settings['access_token'])) {
                 $headers['Authorization'] = $this->settings['token_param_name'] . ' '
                                           . $this->settings['access_token'];
-            } else {
+            } else if (! empty($this->settings['client_id']) &&
+                       ! empty($this->settings['client_secret'])) {
                 $headers['Authorization'] = 'Basic ' . base64_encode(
                     $this->settings['client_id'] . ':' . $this->settings['client_secret']
                 );
@@ -188,6 +205,8 @@ class OAuth2Client
     }
     /**
      * @todo something to parse yaml, xml, m.m ?
+     * parses a response and returns an array if successfull
+     *
      * @param HttpResponse $response
      * @return mixed array or string $response->body
      */
@@ -203,6 +222,8 @@ class OAuth2Client
     }
 
     /**
+     * adds the base_url before a resource $path
+     *
      * @param string $path
      * @return string
      */
@@ -212,10 +233,15 @@ class OAuth2Client
     }
 
 
+    /**
+     * log a response
+     *
+     * @param HttpResponse
+     * @return void
+     */
     protected function logResponse($response)
     {
-        if ($this->settings['developer_mode'])
-        {
+        if ($this->settings['developer_mode'] && function_exists('slog')) {
             slog("");
             slog("** LOG RESPONSE **");
             slog("HEADERS =>");
@@ -225,14 +251,19 @@ class OAuth2Client
         }
     }
 
-    protected function logRequest( $uri, $prms = array())
+    /**
+     * log a request
+     *
+     * @param string $uri
+     * @param array $params
+     */
+    protected function logRequest( $uri, $params = array())
     {
-        if ($this->settings['developer_mode'])
-        {
+        if ($this->settings['developer_mode'] && function_exists('slog')) {
             slog("");
             slog("** LOG REQUEST **");
             slog($uri);
-            slog($prms);
+            slog($params);
         }
     }
 }

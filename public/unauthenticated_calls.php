@@ -16,7 +16,7 @@ $user = $client->getParsed('/users/flattr');
 
 /thing/187509/flattr-on-Flattr:
 <pre><?php var_dump($thing);?></pre>
-<hr/>our(flattr) profile on flattr.com:
+<hr/>the user "flattr" on flattr.com:
 <pre><?php var_dump($user);?></pre>
 <hr/>
 a /lookup of http://blog.flattr.net/2011/10/api-v2-beta-out-whats-changed/ returned
