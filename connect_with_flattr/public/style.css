@@ -1,0 +1,12 @@
+body {
+  font-family: verdana;
+  margin: 2em auto;
+  width: 960px;
+}
+
+.alert {
+  border: 2px solid red;
+}
+.notice {
+  border: 2px solid blue;
+}
