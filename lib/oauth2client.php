@@ -86,7 +86,7 @@ class OAuth2Client
         );
         $this->logResponse($response);
         if (!empty($response->body)) {
-            $prms = static::parseResponse($response);
+            $prms = self::parseResponse($response);
             if(!empty($prms["error"])) {
                 throw new Exception("Authentication error: " . $prms["error"]);
             }
@@ -139,7 +139,7 @@ class OAuth2Client
     {
         $response = $this->get($path);
         if (!empty($response->body) ) {
-            return static::parseResponse($response);
+            return self::parseResponse($response);
         } else {
             return array(
                 'error' => 'did not get a body from '.$uri
