@@ -86,7 +86,7 @@ class OAuth2Client
         );
         $this->logResponse($response);
         if (!empty($response->body)) {
-            $prms = self::parseResponse($response);
+            $prms = static::parseResponse($response);
             if(!empty($prms["error"])) {
                 throw new Exception("Authentication error: " . $prms["error"]);
             }
