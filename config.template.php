@@ -15,7 +15,7 @@ class ConfigFlattr extends ConfigBase
 
         self::$REDIRECT_URI = 'http://'.$_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . '/callback.php';
         self::$DEVELOPER_MODE = false; // more extensive logging using slog; turns of SSL check DANGEROUS!!!
-        self::$SCOPES = 'thing flattr';
+        self::$SCOPES = ''; # space separated string. ie: 'thing flattr'
     }
 }
 
